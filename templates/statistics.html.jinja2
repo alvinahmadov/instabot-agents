@@ -1,0 +1,93 @@
+{% extends "app.html.jinja2" %}
+{% block title %}Статистика{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block container %}
+    {% set page_heading = 'Список ботов' %}
+    {% include "_heading.html.jinja2" %}
+    {% set num_active = bot_manager.num_active %}
+    {% set num_inactive = bot_manager.num_inactive %}
+    {% set num_waiting = bot_manager.num_waiting %}
+    {% set num_finished = bot_manager.num_finished %}
+    {% set num_all = bot_manager|length %}
+    {% include "_statusbar.html.jinja2" %}
+    <div class="pb-4"></div>
+    <table class="table">
+        <thead>
+        <tr class="row card-header-pills bg-gray-800 text-white">
+            <th class="col-sm text-center">#</th>
+            <th class="col-sm text-center">Аватар</th>
+            <th class="col-sm text-center">Имя</th>
+            <th class="col-sm text-center">Полное имя</th>
+            <th class="col-sm text-center">Состояние</th>
+            <th class="col-sm text-center">Доклад</th>
+            <th class="col-sm text-center">Детали</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for name, worker in bot_manager.workers.items() %}
+            <!-- Card Header - Dropdown -->
+            <tr class="row align-middle text-center bg-white">
+                <td class="col col-sm text-center">
+                    <span class="">{{ loop.index }}</span>
+                </td>
+                <td class="col col-sm text-center">
+                    <img alt="Аватар бота"
+                         id="{{ name }}{{ loop.index }}"
+                         class="rounded-circle"
+                         height="75"
+                         width="75"
+                         src="{{ worker.profile_pic_url }}">
+                </td>
+                <td class="col col-sm text-center">
+                    <span class="text-truncate">{{ name }}</span>
+                </td>
+                <td class="col col-sm text-center">
+                    <span class="text-truncate">{{ worker.fullname }}</span>
+                </td>
+                <td class="col col-sm text-center">
+                    {% if worker.status_text == 'active' %}
+                        <span class="badge badge-success align-middle">Активен</span>
+                    {% elif worker.status_text == 'inactive' %}
+                        <span class="badge badge-danger align-middle">Неактивен</span>
+                    {% elif worker.status_text == 'waiting' %}
+                        <span class="badge badge-warning align-middle">Ждет</span>
+                    {% else %}
+                        <span class="badge badge-primary align-middle">Завершен</span>
+                    {% endif %}
+                </td>
+                <td class="col col-sm text-center">
+                    <button class="d-none d-sm-inline-block btn btn-primary rounded-circle shadow-sm waves-circle">
+                        <i class="fas fa-download fa-sm text-white"></i>
+                    </button>
+                </td>
+                <td class="col col-sm text-center">
+                    <button class=" btn btn-secondary"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#{{ name }}"
+                            aria-expanded="false"
+                            aria-controls="{{ name }}"
+                            style="border-radius: 0">
+                        <i class="fas fa-expand-alt"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr class="row bg-white">
+                <td class="card-body collapse" id="{{ name }}">
+                    <div id="show">
+                        {% with stats_title = "Статискика бота" %}
+                            {% set chart_id =  name + '_chart' %}
+                            {% include "_bot_card_body.html.jinja2" %}
+                        {% endwith %}
+                    </div>
+                </td>
+            </tr>
+
+
+        {% endfor %}
+        </tbody>
+    </table>
+    {#    {% include "_pagination.html.jinja2" %}#}
+{% endblock %}

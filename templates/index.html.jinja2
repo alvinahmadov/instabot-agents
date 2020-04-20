@@ -1,0 +1,156 @@
+{% extends "app.html.jinja2" %}
+{% block title %}Главная панель{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block container %}
+    <!-- Page Heading -->
+    {% set page_heading = 'Панель управления' %}
+    {% include "_heading.html.jinja2" %}
+    <!-- Content Row -->
+    <form action="/start_action_followers" method="POST">
+        <div class="">
+            <!--Material textarea-->
+            <div class="md-form">
+                <textarea name="comment"
+                          class="md-textarea form-control"
+                          id="form7"
+                          rows="3">{{ bot_manager.comment }}</textarea>
+                <label for="form7"><b>Комментарий</b></label>
+            </div>
+            <div class="md-form mt-0 w-25">
+                <input id="numFollowers"
+                       name="num_followers"
+                       type="number"
+                       class="form-control"
+                       placeholder="Макс. кол-во подписчиков"
+                       value="0">
+                <label for="numFollowers"></label>
+            </div>
+            <!-- Only public -->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio"
+                       class="custom-control-input"
+                       id="public_account"
+                       value="1"
+                       name="pubpriv" onselect="saveToCookie(this, 'publicprivate', 1)">
+                <label class="custom-control-label"
+                       for="public_account">
+                    Только открытые
+                </label>
+            </div>
+            <!-- Only private -->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio"
+                       class="custom-control-input"
+                       id="private_account"
+                       value="2"
+                       name="pubpriv"
+                       onselect="saveToCookie(this, 'publicprivate', 2)">
+                <label class="custom-control-label"
+                       for="private_account">
+                    Только закрытые
+                </label>
+            </div>
+
+            <!-- Both -->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio"
+                       class="custom-control-input"
+                       id="pubpriv"
+                       value="3"
+                       name="pubpriv"
+                       onselect="saveToCookie(this, 'publicprivate', 3)"
+                       checked>
+                <label class="custom-control-label" for="pubpriv">
+                    Все
+                </label>
+            </div>
+            <br>
+            <!-- Grid row -->
+            <div class="btn-group pb-4 pt-4">
+                <!-- Grid column -->
+                <div class="col-md-12">
+                    <button type="submit" name="startButton"
+                            class="btn btn-outline-blue waves-effect">
+                        <i class="fas fa-play pr-2" aria-hidden="true"></i>
+                        Запуск
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form action="/start_follow_users" method="post">
+        <div>
+            <!--Material textarea-->
+            <div class="md-form">
+                <input type="text" name="follow_users" class="form-control" id="users">
+                <label for="users">Цели</label>
+            </div>
+            <!-- Grid row -->
+            <div class="btn-group pb-4">
+                <!-- Grid column -->
+                <div class="col-md-12">
+                    <button type="submit" name="followButton"
+                            class="btn btn-outline-cyan waves-effect">
+                        <b>Подписаться</b>
+                    </button>
+                    <button type="submit" name="unfollowButton"
+                            class="btn btn-outline-brown waves-effect">
+                        <b>Отписаться</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="container-fluid" style="height: 600px; overflow-y: scroll">
+{#        {% with stats_title = "Общая статискика ботов" %}#}
+{#            <table class="table">#}
+{#                <thead>#}
+{#                <tr>#}
+{#                    <th scope="col">#</th>#}
+{#                    <th scope="col">Пройдены</th>#}
+{#                    <th scope="col">Совпали</th>#}
+{#                    <th scope="col">Заявки</th>#}
+{#                    <th scope="col">Комментарии</th>#}
+{#                    <th scope="col">Дата</th>#}
+{#                </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                {% with data = bot_manager.get_stats() %}#}
+{#                    {% set len = data|length %}#}
+{#                    {% for i in range(1, len + 1) %}#}
+{#                        <tr>#}
+{#                            <th scope="row">{{ i }}</th>#}
+{#                            <td>{{ data[i]['parsed_count'] }}</td>#}
+{#                            <td>{{ data[i]['ignored_count'] }}</td>#}
+{#                            <td>{{ data[i]['follow_request_count'] }}</td>#}
+{#                            <td>{{ data[i]['comment_count'] }}</td>#}
+{#                            <td>{{ data[i]['created_on'] }}</td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                {% endwith %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        {% endwith %}#}
+    </div>
+    <!-- End of Main Content -->
+{% endblock %}
+{% block scripts %}
+    <script>
+        function checkboxStateWatcher(id, value) {
+            if (value === 'True')
+                $('#' + id).prop('checked', true);
+            else
+                $('#' + id).prop('checked', false);
+        }
+
+        function saveToCookie(item) {
+
+        }
+
+        checkboxStateWatcher('hasAvatar', '{{ config.get('filter_users_without_profile_photo') }}');
+        checkboxStateWatcher('nonBusinness', '{{ config.get('filter_business_accounts') }}');
+        checkboxStateWatcher('hasExternalUrl', '{{ config.get('filter_users_with_external_url') }}');
+    </script>
+{% endblock %}

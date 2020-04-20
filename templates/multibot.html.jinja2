@@ -1,0 +1,312 @@
+{% extends "app.html.jinja2" %}
+{% block title %}Фабрика ботов{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block container %}
+    <!-- Page Heading -->
+    {% set page_heading = 'Фабрика ботов' %}
+    {% include "_heading.html.jinja2" %}
+    <!-- Start Bot Button -->
+    <div class="container">
+        <div style="text-align: center;">
+            <h4 class="badge-secondary p-2">Настройки</h4>
+        </div>
+
+        <div style="border: 1px solid #337ab7 !important;">
+            <div id="collapseAccountHeading" class="" style="text-align: center;">
+                <h5 class="btn-primary">
+                    <a id="accountTrigger" class="nav-link" type="button" data-toggle="collapse"
+                       data-target="#collapseAccount"
+                       aria-expanded="true" aria-controls="collapseAccount">
+                        <i class="fa fa-user float-left"></i>
+                        Аккаунты
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseAccount" class="collapse" aria-labelledby="collapseFilterHeading"
+                 data-parent="#accordionFilters">
+                <br class="mb-xl-5"/>
+                <div style="text-align: center;">
+
+                    <br class="mb-xl-5"/>
+                    <form action="/upload_bots" method="post" enctype=multipart/form-data>
+                        <div class="custom-file">
+                            <input type="file" accept="application/vnd.ms-excel, text/csv"
+                                   class="custom-file-input mr-3 ml-3" id="fileSelect" lang="ru" name="file">
+                            <label class="custom-file-label mr-3 ml-3" for="fileSelect">
+                                Выберите файл
+                            </label>
+                        </div>
+
+                        <br class="pb-3 pt-3"/>
+                        <div class="text-center">
+                            <button id="fileDownload" class="btn btn-primary btn-icon-split">
+                            <span class="icon "><i class="fas fa-upload"></i>
+                                Загрузить
+                        </span>
+                            </button>
+                        </div>
+                    </form>
+                    <form action="/download_bots" method="get">
+                        <div class="text-center">
+                            <a id="fileUpload" href="/download_bots" class="btn btn-primary btn-icon-split" target="_blank">
+                            <span class="icon "><i class="fas fa-download"></i>
+                                Скачать
+                        </span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <br class="mb-xl-5"/>
+            </div>
+        </div>
+        <div class="pb-2"></div>
+        <div style="border: 1px solid #f6c23e !important;">
+            <div class="accordion" id="accordionFilters">
+                <div id="collapseFilterHeading" style="text-align: center;">
+                    <h5 class="btn-warning">
+                        <a id="filterTrigger" class="nav-link" type="button" data-toggle="collapse"
+                           data-target="#collapseFilters"
+                           aria-expanded="true" aria-controls="collapseFilters">
+                            <i class="fa fa-filter float-left"></i>
+                            Фильтры
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseFilters" class="collapse" aria-labelledby="collapseFilterHeading"
+                     data-parent="#accordionFilters">
+                    <form action="/configure_filters" autocomplete="off" method="post">
+                        <div class="custom-control custom-checkbox ml-3 pb-3">
+                            <input class="custom-control-input" id="hasAvatar" name="filter_users_without_profile_photo"
+                                   type="checkbox">
+                            <label class="custom-control-label" for="hasAvatar">Только с аватаром</label>
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3 pb-3">
+                            <input class="custom-control-input" id="nonBusinness" name="filter_business_accounts"
+                                   type="checkbox" value="on">
+                            <label class="custom-control-label" for="nonBusinness">Некоммерческий</label>
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3 pb-3">
+                            <input class="custom-control-input" id="hasExternalUrl"
+                                   name="filter_users_with_external_url"
+                                   type="checkbox">
+                            <label class="custom-control-label" for="hasExternalUrl">Нет ссылки в описании</label>
+                        </div>
+                        <!-- Grid row -->
+                        <div class="mb-4"></div>
+                        <div class="ml-3 mr-3 pb-3">
+                            <label>Количество подписчиков</label>
+                            <div class="form-row">
+                                <br>
+                                <!-- Grid column -->
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <div class="md-form mt-0">
+                                        <input id="minFollowers" name="min_followers_to_follow" type="number"
+                                               class="form-control" placeholder="Минимум"
+                                               value="{{ config.get('min_followers_to_follow') }}">
+                                        <label for="minFollowers"></label>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                                <!-- Grid column -->
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <div class="md-form mt-0">
+                                        <input id="maxFollowers" name="max_followers_to_follow" type="number"
+                                               class="form-control"
+                                               placeholder="Максимум"
+                                               value="{{ config.get('max_followers_to_follow') }}">
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                            </div>
+                        </div>
+                        <div class="ml-3 mr-3 pb-3">
+                            <label>Количество подписок</label>
+                            <div class="form-row">
+                                <br>
+                                <!-- Grid column -->
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <div class="md-form mt-0">
+                                        <input id="minFollowing" name="min_following_to_follow" type="number"
+                                               class="form-control"
+                                               placeholder="Минимум"
+                                               value="{{ config.get('min_following_to_follow') }}">
+                                        <label for="minFollowing"></label>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <div class="md-form mt-0">
+                                        <input id="maxFollowing" name="max_following_to_follow" type="number"
+                                               class="form-control"
+                                               placeholder="Максимум"
+                                               value="{{ config.get('max_following_to_follow') }}">
+                                        <label for="maxFollowing"></label>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                            </div>
+                        </div>
+                        <!-- Submit button -->
+                        <br class="pb-3"/>
+                        <div class="text-center">
+                            <button id="filterSave" class="btn btn-primary btn-icon-split">
+                            <span class="icon "><i class="fas fa-save"></i>
+                            Сохранить
+                        </span>
+                            </button>
+                        </div>
+                        <br class="mb-xl-5"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="pb-2"></div>
+        <div style="border: 1px solid #795548 !important;">
+            <div class="accordion" id="accordionLimits">
+                <div id="collapseLimitHeading" style="text-align: center;">
+                    <h5 class="btn-brown">
+                        <a id="limitTrigger" class="nav-link" type="button" data-toggle="collapse"
+                           data-target="#collapseLimits"
+                           aria-expanded="true" aria-controls="collapseLimits">
+                            <i class="fa fa-balance-scale float-left"></i>
+                            Ограничения
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseLimits" class="collapse" aria-labelledby="collapseLimitHeading"
+                     data-parent="#accordionLimits">
+                    <form action="/configure_limits" autocomplete="off" method="post">
+                        <!-- Grid row -->
+                        <div class="mb-4"></div>
+                        <!-- Max likes and max follows per day  -->
+                        <div class="ml-3 mr-3 pb-3">
+                            <div class="form-row">
+                                <br>
+                                <!-- Grid column -->
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <label for="maxLikes">Макс. лайков в день</label>
+                                    <div class="md-form mt-0">
+                                        <input id="maxLikes" name="max_likes_per_day" type="number"
+                                               class="form-control" placeholder="Минимум"
+                                               value="{{ config.get('max_likes_per_day') }}">
+                                        <small class="form-text text-muted">
+                                            (рекомендуется 600)
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <label for="maxFollows">Макс. подписок в день</label>
+                                    <div class="md-form mt-0">
+                                        <input id="maxFollows" name="max_follows_per_day"
+                                               type="number" class="form-control"
+                                               value="{{ config.get('max_follows_per_day') }}">
+                                        <small class="form-text text-muted">
+                                            (рекомендуется 350)
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <label for="maxComments">Макс. комментов в день</label>
+                                    <div class="md-form mt-0">
+                                        <input id="maxComments" name="max_comments_per_day" type="number"
+                                               class="form-control" placeholder="Минимум"
+                                               value="{{ config.get('max_comments_per_day') }}">
+                                        <small class="form-text text-muted">
+                                            (рекомендуется 100)
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Max comments and max follows per day  -->
+                        <div class="ml-3 mr-3 pb-3">
+                            <div class="form-row">
+                                <br>
+                                <!-- Grid column -->
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <label for="likeDelay">Задержка между лайками</label>
+                                    <div class="md-form mt-0">
+                                        <input id="likeDelay" name="like_delay" type="number"
+                                               class="form-control" aria-describedby="likeDelayHelp"
+                                               value="{{ config.get('like_delay') }}">
+                                        <small id="likeDelayHelp" class="form-text text-muted">
+                                            в секундах
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <label for="followDelay">Задержка между подписками</label>
+                                    <div class="md-form mt-0">
+                                        <input id="followDelay" name="follow_delay"
+                                               aria-describedby="passwordHelpBlockMD"
+                                               type="number" class="form-control"
+                                               value="{{ config.get('follow_delay') }}">
+                                        <small id="followDelayHelp" class="form-text text-muted">
+                                            в секундах
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Material input -->
+                                    <label for="commentDelay">Задержка между комментами</label>
+                                    <div class="md-form mt-0">
+                                        <input id="commentDelay" name="comment_delay"
+                                               aria-describedby="commentDelayHelp"
+                                               type="number" class="form-control"
+                                               value="{{ config.get('comment_delay') }}">
+                                        <small id="commentDelayHelp" class="form-text text-muted">
+                                            в секундах
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <br class="pb-3"/>
+                        <div class="text-center">
+                            <button id="limitSave" class="btn btn-primary btn-icon-split">
+                            <span class="icon "><i class="fas fa-save"></i>
+                            Сохранить
+                        </span>
+                            </button>
+                        </div>
+                        <br class="mb-xl-5"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function checkboxStateWatcher(id, value) {
+            if (value === 'True')
+                $('#' + id).prop('checked', true);
+            else
+                $('#' + id).prop('checked', false);
+        }
+
+        collapseStateWatcher('accountTrigger', 'collapseAccount', 'show');
+        collapseStateWatcher('filterTrigger', 'collapseFilters', 'show');
+        collapseStateWatcher('limitTrigger', 'collapseLimits', 'show');
+
+        checkboxStateWatcher('hasAvatar', '{{ config.get('filter_users_without_profile_photo') }}');
+        checkboxStateWatcher('nonBusinness', '{{ config.get('filter_business_accounts') }}');
+        checkboxStateWatcher('hasExternalUrl', '{{ config.get('filter_users_with_external_url') }}');
+    </script>
+{% endblock %}

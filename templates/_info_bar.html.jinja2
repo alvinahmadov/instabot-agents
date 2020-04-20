@@ -1,0 +1,73 @@
+
+{% if bot_manager.get_nbots() > 0 %}
+{% set nfollowers = bot_manager.get_nfollowers() %}
+{% set nfollowing = bot_manager.get_nfollowing() %}
+{% set nlikes = 0 %}
+{% else %}
+{% set nfollowers = 0 %}
+{% set nfollowing = 0 %}
+{% set nlikes = 0 %}
+{% endif %}
+<div class="col-xl-3 col-md-6 mb-xl-5">
+    <div class="card border-left-primary shadow h-100 py-2 zoom-on-hover">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Подписчики
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="/show_followers" class="card-link">
+                            <span class="text-gray-600">{{ nfollowers }}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-user-friends fa-2x text-primary" id="user_followers_info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-md-6 mb-xl-5">
+    <div class="card border-left-success shadow h-100 py-2 zoom-on-hover">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Подписки
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="/show_following" class="card-link">
+                            <span class="text-gray-600">{{ nfollowing }}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-user-friends fa-2x text-success" id="user_following_info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-md-6 mb-xl-5">
+    <div class="card border-left-purple shadow h-100 py-2 zoom-on-hover">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-purple text-uppercase mb-1">
+                        лайки
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="/show_likes" class="card-link">
+                            <span class="text-gray-600">{{ nlikes }}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-heart fa-2x text-purple" id="user_likes_info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

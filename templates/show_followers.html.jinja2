@@ -1,0 +1,64 @@
+{% extends "app.html.jinja2" %}
+{% block title %}Главная панель{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block container %}
+    <style>
+        .dark-link {
+            color: rgb(0, 53, 105) !important;
+        }
+    </style>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Подписки</h1>
+    </div>
+    {% set followers = bot_manager.get_followers() %}
+    {% if True %}
+        <div class="col-md-9">
+            {% for follower in followers %}
+                <div class="row m-3">
+                    <div class="col-sm-3">
+                        <img alt="{{ follower['username'] }}"
+                             class="rounded-circle align-self-center mr-3"
+                             height="150"
+                             width="150"
+                             src="{{ follower.get('profile_pic_url', '') }}">
+                    </div>
+                    <div class="col-sm">
+                        <div class="media p-3">
+                            <div class="media-body" style="color: black!important;">
+                            <span class="mt-0 text-gray-900">
+                            <a class="card-link dark-link"
+                               href="https://www.instagram.com/{{ follower['username'] }}" target="_blank">
+                                {{ follower['username'] }}
+                            </a>
+                        </span>
+                                <div class="list-group-horizontal font-small mb-0"
+                                     style="font-size: 14px!important;">
+                                    <span class="mt-0 font-weight-bold black-text">{{ follower.get('num_media', 0) }}</span>
+                                    публикаций
+                                    <span class="pr-lg-3"></span>
+                                    <span class="mt-0 font-weight-bold black-text">{{ follower.get('num_followers', 0) }}</span>
+                                    подписчиков
+                                    <span class="pr-lg-3"></span>
+                                    <span class="mt-0 font-weight-bold black-text">{{ follower.get('num_following',0) }}</span>
+                                    подписок
+                                    <span class="pr-lg-3"></span>
+                                </div>
+                                <div class="list-group-vertical font-small pt-3 mb-0">
+                                    <span class="mt-0 font-weight-bold black-text">{{ follower.get('fullname', '') }}</span>
+                                    <br>
+                                    <small>{{ follower.get('biography', '') }}</small>
+                                    <br>
+                                    <span><a class="card-link dark-link"
+                                             href="{{ follower.get('external_url', '') }}">{{ follower.get('external_url', '') }}</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

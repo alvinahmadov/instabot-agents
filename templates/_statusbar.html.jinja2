@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col">
+        <div class="border-left-success bg-white zoom-on-hover">
+            <div class="card-body">
+                <div class="row">
+                    <div class="text-xs font-weight-bold text-success text-uppercase ">
+                        Активны
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span class="text-gray-600">{{ num_active }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="border-left-danger bg-white zoom-on-hover">
+            <div class="card-body">
+                <div class="row">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase">
+                        Неактивны
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span class="text-gray-600">{{ num_inactive }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="border-left-warning bg-white zoom-on-hover">
+            <div class="card-body">
+                <div class="row">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase">
+                        Ждут
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <span class="text-gray-600">{{ num_waiting }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="border-left-primary bg-white zoom-on-hover">
+            <div class="card-body">
+                <div class="row">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase ">
+                        Завершили
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">
+                        <span class="text-gray-600">{{ num_finished }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="border-left-secondary bg-white zoom-on-hover">
+            <div class="card-body">
+                <div class="row">
+                    <div class="text-xs font-weight-bold text-secondary text-uppercase ">
+                        Общее
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">
+                        <span class="text-gray-600">{{ num_all }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

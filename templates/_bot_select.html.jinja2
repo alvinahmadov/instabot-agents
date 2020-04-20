@@ -1,0 +1,31 @@
+<div class="input-group w-50">
+    <div class="input-group-prepend">
+        <div class="input-group-text">@</div>
+    </div>
+    <label for="{{ name }}"></label>
+    <input name="bot_select" aria-describedby="material-addon1"
+           class="form-control w-50" id="{{ name }}" value="{{ name }}" disabled/>
+
+
+</div>
+{% block scripts %}
+    <script>
+        function f() {
+            let selectionItem = document.getElementById('botlistStats');
+            let currentBotId = localStorage.getItem('bot_id');
+
+            if (currentBotId !== null) {
+                let selectOpts = selectionItem.options;
+                for (let opt = selectOpts[0], i = 0; i < selectOpts.length; opt = selectOpts[++i]) {
+                    if (opt.value === currentBotId) {
+                        if (selectionItem.selectedIndex !== i) {
+                            selectionItem.selectedIndex = i
+                        }
+                    }
+                }
+            }
+        }
+
+        f()
+    </script>
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>Инстаботы - {% block title %}{% endblock %}</title>
+    {% endblock %}
+    <!-- Custom fonts for this template-->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/bot.png') }}">
+    <link href="{{ url_for('static', filename='css/fontawesome/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/mdb.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 20px; /* Location of the box */
+            left: 70%;
+            top: 0;
+            width: 30%; /* Full width */
+            height: 50%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+</head>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!--Navigation bar-->
+    {% include "_menu.html.jinja2" %}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container-fluid">
+                {% block container %}
+                {% endblock %}
+            </div>
+        </div>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+<!-- End of Main Content -->
+
+<div id="myModal" class="modal" style="display: none">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <p id="modal-text-body"></p>
+    </div>
+</div>
+
+<!-- Custom scripts for all pages-->
+<script type="text/javascript" charset="utf-8">
+
+    let modal = document.getElementById("myModal");
+    let modalText = document.getElementById("modal-text-body");
+
+    $(document).ready(function () {
+
+        // let socket = io();
+
+        // let close_modal = function () {
+        //    modal.style.display = "none";
+        // };
+
+        //socket.on('loaded', function (message) {
+        //    console.log('Loaded in template');
+        //    modalText.textContent = message;
+        //    modal.style.display = "block";
+        //    setTimeout(close_modal, 5)
+        // });
+    });
+
+</script>
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
+<!-- Page level plugins -->
+<script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lunr.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sb-admin-2.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/charts/chart-area-demo.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.4"></script>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,56 @@
+<tr class="row align-middle text-center bg-white">
+    <td class="col col-sm text-center">
+        <span class="">{{ worker_number }}</span>
+    </td>
+    <td class="col col-sm text-center">
+        <img alt="Аватар бота"
+             id="{{ worker_name }}{{ worker_number }}"
+             class="rounded-circle"
+             height="75"
+             width="75"
+             src="{{ worker_picture }}">
+    </td>
+    <td class="col col-sm text-center">
+        <span class="text-truncate">{{ worker_name }}</span>
+    </td>
+    <td class="col col-sm text-center">
+        <span class="text-truncate">{{ worker_fullname }}</span>
+    </td>
+    <td class="col col-sm text-center">
+        {% if worker_status == 'active' %}
+            <span class="badge badge-success align-middle">Активен</span>
+        {% elif worker_status == 'inactive' %}
+            <span class="badge badge-danger align-middle">Неактивен</span>
+        {% elif worker_status == 'waiting' %}
+            <span class="badge badge-warning align-middle">Ждет</span>
+        {% else %}
+            <span class="badge badge-primary align-middle">Завершен</span>
+        {% endif %}
+    </td>
+    <td class="col col-sm text-center">
+        <a href="download_stats/{{ worker_name }}" class="d-none d-sm-inline-block btn btn-primary rounded-circle shadow-sm waves-circle">
+            <i class="fas fa-download fa-sm text-white"></i>
+        </a>
+    </td>
+    <td class="col col-sm text-center">
+        <button class=" btn btn-secondary"
+                type="button"
+                data-toggle="collapse"
+                data-target="#{{ worker_name }}"
+                aria-expanded="false"
+                aria-controls="{{ worker_name }}"
+                style="border-radius: 0">
+            <i class="fas fa-expand-alt"></i>
+        </button>
+    </td>
+</tr>
+<tr class="row bg-white">
+    <td class="card-body collapse" id="{{ worker_name }}">
+        <div id="show">
+            {% with stats_title = "Статискика бота" %}
+                {% set chart_id =  worker_name + '_chart' %}
+            {% include "_bot_card_body.html.jinja2" %}
+            {% endwith %}
+        </div>
+    </td>
+</tr>

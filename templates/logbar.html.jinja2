@@ -1,0 +1,43 @@
+<!-- Logs -->
+<div class="card shadow mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header d-flex p-2 flex-row align-items-center justify-content-between mb-4">
+        <div class="col col-sm d-flex">
+            <label class="py-lg-3 font-weight-bold text-primary" for="botlistLogs">
+                Логи
+            </label>
+            <div class="input-group py-3 ml-sm-2 w-50">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">@</div>
+                </div>
+                <select aria-describedby="material-addon1" class="form-control" id="botlistLogs">
+                    {% for bot in bots %}
+                    <option>{{ bot }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="ml-5">
+                <img alt="Аватар бота"
+                     class="rounded-circle"
+                     height="100"
+                     src="{{bot_pic}}"
+                     width="100">
+            </div>
+        </div>
+        <div class="dropdown no-arrow">
+            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
+               href="#" id="dropdownMenuLinkLogs" role="button">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div aria-labelledby="dropdownMenuLinkLogs"
+                 class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                <a class="dropdown-item" href="#" onclick="clearCanvas()">Очистить</a>
+            </div>
+        </div>
+    </div>
+    <!-- Card Body -->
+    <div align="center" id="show"
+         style="width: 100%; height: 550px; overflow: scroll;">
+
+    </div>
+</div>

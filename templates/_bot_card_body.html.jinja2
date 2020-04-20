@@ -1,0 +1,94 @@
+<div class="row flex-row">
+    <div class="col col-sm-12">
+        <h6>О себе</h6>
+        <p>{{ worker.biography  }}</p>
+    </div>
+    {% if worker.external_url != None or worker.external_url != ''%}
+        <div class="col col-sm-12">
+            <h6>Ссылка</h6>
+            <a class="card-link" style="color: #0000b5!important;" href="{{ worker.external_url }}" target="_blank"><b class="font-weight-bolder">{{ worker.external_url }}</b></a>
+        </div>
+    {% endif %}
+</div>
+<br class="pt-3">
+<div class="row flex-row">
+    <div class="col-sm-12">
+        <h6>{{ stats_title }}</h6>
+    </div>
+    <!-- Comments -->
+    <div class="col col-sm-3">
+        <div class="card-title">
+            <div class="card-content">
+                <div class="media d-flex">
+                    <div class="align-self-center pr-4">
+                        <i class="fa fa-comment-alt fa-2x text-warning float-left"
+                           title="Комментарии"
+                           data-toggle="tooltip"
+                           data-placement="bottom"></i>
+                    </div>
+                    <br>
+                    <div class="media-body">
+                        <h4>{{ 0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Targets -->
+    <div class="col col-sm-3">
+        <div class="card-title">
+            <div class="card-content">
+                <div class="media d-flex">
+                    <div class="align-self-center pr-4">
+                        <i class="fa fa-user fa-2x text-secondary float-left"
+                           title="Цели"
+                           data-toggle="tooltip"
+                           data-placement="bottom"></i>
+                    </div>
+                    <br>
+                    <div class="media-body">
+                        <h4>{{ 0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Parsed -->
+    <div class="col col-sm-3">
+        <div class="card-title">
+            <div class="card-content">
+                <div class="media d-flex">
+                    <div class="align-self-center pr-4">
+                        <i class="fa fa-users fa-2x text-info float-left"
+                           title="Обработаны"
+                           data-toggle="tooltip"
+                           data-placement="bottom"></i>
+                    </div>
+                    <br>
+                    <div class="media-body">
+                        <h4>{{ 0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ignored -->
+    <div class="col col-sm-3">
+        <div class="card-title">
+            <div class="card-content">
+                <div class="media d-flex">
+                    <div class="align-self-center pr-4">
+                        <i class="fa fa-users fa-2x text-info float-left"
+                           title="Исключения"
+                           data-toggle="tooltip"
+                           data-placement="bottom"></i>
+                    </div>
+                    <br>
+                    <div class="media-body">
+                        <h4>{{ 0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
